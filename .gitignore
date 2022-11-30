@@ -1,4 +1,4 @@
 .idea
-.o
-.d
+*.o
+*.d
 test_graphe

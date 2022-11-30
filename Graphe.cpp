@@ -1,11 +1,12 @@
 #include "Graphe.h"
 #include <iostream>
 #include <math.h>
+#include "MReadWrite.h"
+
 
 Graphe::Graphe() {
-    nbLigne = 4;
-    nbColonne = 6;
-    grille = new int[nbLigne*nbColonne];
+    setNewGraph(4, 6);
+
     for (int i = 0; i < nbLigne; ++i) {
         for (int j = 0; j < nbColonne; ++j) {
             int indice = getIndice(i, j);
@@ -15,14 +16,34 @@ Graphe::Graphe() {
 }
 
 Graphe::Graphe(int _nbLigne, int _nbColonne, int *_altitudes) {
-    nbLigne = _nbLigne;
-    nbColonne = _nbColonne;
+    setNewGraph(_nbLigne, _nbColonne);
+
     for (int i = 0; i < nbLigne; ++i) {
         for (int j = 0; j < nbColonne; ++j) {
             int indice = getIndice(i, j);
             grille[indice] = _altitudes[indice];
         }
     }
+}
+
+Graphe::Graphe(const char *_fichier) {
+    textToTab(_fichier, this);
+/*
+    std::cout << "Nb ligne : " << nbLigne << std::endl;
+    std::cout << "Nb colonnes : " << nbColonne << std::endl;
+    for(int i = 0; i<nbLigne; i++){
+        for (int j = 0; j < nbColonne; ++j) {
+            std::cout << grille[0] << std::endl;
+        }
+    }
+    */
+}
+
+int* Graphe::setNewGraph(int _nbLigne, int _nbColonne) {
+    nbLigne = _nbLigne;
+    nbColonne = _nbColonne;
+    grille = new int[nbLigne*nbColonne];
+    return grille;
 }
 
 void Graphe::afficher() {

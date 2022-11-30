@@ -9,6 +9,9 @@ class Graphe {
 public:
     Graphe();
     Graphe(int _nbLigne, int _nbColonne, int _altitudes[]);
+    Graphe(const char * _fichier);
+
+    int* setNewGraph(int _nbLigne, int _nbColonne);
 
     void afficher();
     void testVoisins(int _indice);

@@ -2,7 +2,10 @@
 
 int main(){
     Graphe g1;
-    g1.afficher();
+    //g1.afficher();
+
+    Graphe g2("./exempleGraphe.txt");
+    g2.afficher();
     /*
     g1.testVoisins(0);
     g1.testVoisins(1);

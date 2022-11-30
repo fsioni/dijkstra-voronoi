@@ -1,1 +1,6 @@
 .idea
+Graphe.d
+Graphe.o
+test_graphe
+graphe_tests.o
+graphe_tests.d

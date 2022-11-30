@@ -3,37 +3,81 @@
 
 #include <vector>
 
+// Definition des différentes cardinalités
 enum Cardinalite {Nord, Ouest, Sud, Est};
 
 class Graphe {
 public:
+    
+    /******************************/
+    /*Constructeurs & destructeur*/
+    /****************************/
+
     Graphe();
     Graphe(int _nbLigne, int _nbColonne, int _altitudes[]);
+    // Prend un paramètre un ficher txt pour affecter les altitudes au graphe
+    Graphe(const char * _fichier);
 
+    /********************************/
+    /*Fonctions et procédure public*/
+    /******************************/
+
+    // Initialise le tableau avec le nombre de lignes et de colones passés en paramètre 
+    int* setNewGraph(int _nbLigne, int _nbColonne);
+
+    // Affiche le graphe (les altitudes)
     void afficher();
+    
+    // Affiche le status des voisins en fonction l'indice en paramètre
     void testVoisins(int _indice);
+
 private:
-    int nbLigne, nbColonne;
-    int *grille;
+    
+    /****************/
+    /*Donnée membre*/
+    /**************/
+
+    int nbLigne, nbColonne; // nombre de ligne & de colonne
+    int *grille; // tableau 1D d'entier
+
+    /*******************************/
+    /*Fonction et procédure membre*/
+    /*****************************/
+
+    // Renvoi l'indice du tableau sous forme 1D 
     int getIndice(int _ligne, int _colonne);
-    int getLigne(int _indice); // i / C
-    int getColonne(int _indice); // i % C
+    // Renvoi la ligne de l'indice passer en paramètre
+    int getLigne(int _indice);
+    // Renvoi la colonne de l'indice passer en paramètre
+    int getColonne(int _indice);
+    // Renvoi l'altitude de l'indice passer en paramètre
     int getAltitude(int _indice);
 
+    // Renvoi le nombre de voisin que possède l'indice passer en paramètre
     int nbVoisins(int _indice);
 
+    // Renvoi vrai si le voisin de l'indice, pour une cardinalité passer en paramètre existe, faux sinon
     bool isVoisinExists(int _indice, Cardinalite _cardi);
+    // Renvoi vrais si l'indice à un voisin nord, faux sinon
     bool isVoisinNordExists(int _indice);
+    // Renvoi vrais si l'indice à un voisin ouest, faux sinon
     bool isVoisinOuestExists(int _indice);
+    // Renvoi vrais si l'indice à un voisin sud, faux sinon
     bool isVoisinSudExists(int _indice);
+    // Renvoi vrais si l'indice à un voisin est, faux sinon
     bool isVoisinEstExists(int _indice);
 
-    int getVoisin(int _indice, Cardinalite _cardi); //0 : Nord - 1 : Ouest - 2 : Sud - 3 : Est
+    // Renvoi l'altitude (int) du voisin de _indice (paramètre) pour une certaine cardinalité 
+    int getVoisin(int _indice, Cardinalite _cardi);
 
-    int getNord(int _indice); // i-C
-    int getSud(int _indice); // i+C
-    int getEst(int _indice); // i+1
-    int getOuest(int _indice); // i-1
+    // Renvoi l'altitude du voisin nord
+    int getNord(int _indice);
+    // Renvoi l'altitude du voisin sud
+    int getSud(int _indice);
+    // Renvoi l'altitude du voisin est
+    int getEst(int _indice);
+    // Renvoi l'altitude du voisin ouest
+    int getOuest(int _indice);
 };
 
 

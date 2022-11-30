@@ -1,6 +1,6 @@
 .idea
-Graphe.d
-Graphe.o
+*.o
+*.d
 test_graphe
-graphe_tests.o
-graphe_tests.d
+
+

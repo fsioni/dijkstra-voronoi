@@ -4,6 +4,7 @@ CXX      = g++
 
 SOURCES =
 SOURCES += Graphe.cpp
+SOURCES += MReadWrite.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 

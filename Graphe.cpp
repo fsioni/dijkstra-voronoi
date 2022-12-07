@@ -176,7 +176,6 @@ int Graphe::getVoisin(int _indice, Cardinalite _cardi) {
 }
 
 float Graphe::getValuationVoisin(int _indice, Cardinalite _cardi) {
-    std::cout << "Je suis l'indice : " << _indice << " pour la cardi : " << _cardi << std::endl;
     int voisinIndice = 0;
     switch (_cardi) {
         case Cardinalite::Nord :
@@ -192,13 +191,8 @@ float Graphe::getValuationVoisin(int _indice, Cardinalite _cardi) {
             voisinIndice = getEst(_indice);
             break;
     }
-    std::cout << "L'indice du voisin est : " << voisinIndice << std::endl;
-
-    std::cout << "L'altitude du voisin est : " << getAltitude(voisinIndice) << std::endl;
 
     int currAltitude = getAltitude(_indice);
-    std::cout << "currAltitude est : " << currAltitude << std::endl;
-
 
     int differenceAlti = currAltitude - getAltitude(voisinIndice);
     differenceAlti *= differenceAlti;

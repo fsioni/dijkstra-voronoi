@@ -39,6 +39,10 @@ Graphe::Graphe(const char *_fichier) {
     */
 }
 
+Graphe::~Graphe() {
+    delete grille;
+}
+
 int* Graphe::setNewGraph(int _nbLigne, int _nbColonne) {
     nbLigne = _nbLigne;
     nbColonne = _nbColonne;
@@ -90,6 +94,10 @@ int Graphe::getColonne(int _indice) {
 
 int Graphe::getAltitude(int _indice) {
     return grille[_indice];
+}
+
+void Graphe::setAltitude(int _indice, int _newAlti) {
+    grille[_indice] = _newAlti;
 }
 
 int Graphe::nbVoisins(int _indice) {

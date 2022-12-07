@@ -9,6 +9,7 @@ int main(){
     Graphe g2("./exempleGraphe.txt");
     g2.afficher();
     std::cout << g2.getValuationVoisin(3, Cardinalite::Sud) << std::endl;
+    g2.applyDijsktra();
      /*
     g1.testVoisins(0);
     g1.testVoisins(1);

@@ -1,6 +1,7 @@
 #include "Graphe.h"
 #include <iostream>
 #include <math.h>
+#include <queue>
 #include "MReadWrite.h"
 
 
@@ -182,7 +183,7 @@ int Graphe::getVoisin(int _indice, Cardinalite _cardi) {
     return -1;
 }
 
-float Graphe::getValuationVoisin(int _indice, Cardinalite _cardi) {
+double Graphe::getValuationVoisin(int _indice, Cardinalite _cardi) {
     int voisinIndice = 0;
     switch (_cardi) {
         case Cardinalite::Nord :
@@ -239,6 +240,79 @@ int Graphe::getEst(int _indice) {
 }
 
 void Graphe::testRegression() {
-    // 1 ) getIndice
+
+}
+
+struct PQElement {
+    int indice;
+    double valuation;
+    PQElement(int _indice, double _valuation) : indice(_indice), valuation(_valuation) {}
+    bool operator<(const PQElement& _other) const {
+        return valuation > _other.valuation;
+    }
+};
+
+void Graphe::applyDijsktra() {
+    int taille = nbLigne * nbColonne;
+    std::vector<double> valuation(taille);
+    std::vector<int> precedent(taille);
+    for (int i = 0; i < taille; ++i) {
+        precedent[i] = i;
+        valuation[i] = -1;
+    }
+
+    std::priority_queue<PQElement> aTraiter;
+
+    for (int i = 0; i < taille; ++i) {
+        if(librairies[i]){
+            valuation[i] = 0;
+            precedent[i] = -1;
+            aTraiter.push(PQElement(i, 0));
+        }
+    }
+
+    while(!aTraiter.empty()){
+        PQElement curr = aTraiter.top();
+        aTraiter.pop();
+
+        for (int i = 0; i < 4; ++i) {
+            if(isVoisinExists(curr.indice, (Cardinalite)i)){
+                int voisinIndice = getVoisin(curr.indice, (Cardinalite)i);
+                double valuationVoisin = getValuationVoisin(curr.indice, (Cardinalite)i);
+                double dv = valuation[voisinIndice];
+                double dc = valuation[curr.indice];
+                double dnv = dc + valuationVoisin;
+                if(precedent[voisinIndice] == voisinIndice || dnv < dv){
+                    precedent[voisinIndice] = curr.indice;
+                    valuation[voisinIndice] = dnv;
+                    aTraiter.push(PQElement(voisinIndice, dnv));
+                }
+                }
+            }
+        }
+
+    //Afficher les tableaux de valuation et de precedent
+    std::cout << "Valuation : \n";
+    for (int i = 0; i < taille; ++i) {
+        std::cout << valuation[i] << " ";
+        if(i%nbColonne == nbColonne-1){
+            std::cout << "\n";
+        }
+    }
+    std::cout << "\nPrecedent : \n";
+    for (int i = 0; i < taille; ++i) {
+        std::cout << precedent[i] << " ";
+        if(i%nbColonne == nbColonne-1){
+            std::cout << "\n";
+        }
+    }
+    printVoronoi(valuation, precedent);
+}
+
+void Graphe::printVoronoi(std::vector<double> valuation, std::vector<int> precedent) {
+    std::cout << "\n\n";
+    for (int i = 0; i < nbColonne*nbLigne; ++i) {
+
+    }
 
 }

@@ -34,7 +34,8 @@ public:
     // Affiche le status des voisins en fonction l'indice en paramètre
     void testVoisins(int _indice);
     void setAltitude(int _indice, int _newAlti);
-    float getValuationVoisin(int _indice, Cardinalite _cardi);
+    double getValuationVoisin(int _indice, Cardinalite _cardi);
+    void applyDijsktra();
 
 private:
     
@@ -85,6 +86,8 @@ private:
     int getEst(int _indice);
     // Renvoi l'altitude du voisin ouest
     int getOuest(int _indice);
+
+    void printVoronoi(std::vector<double> valuation, std::vector<int> precedent);
 
     // Procédure de test
 

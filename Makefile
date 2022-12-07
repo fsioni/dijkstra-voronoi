@@ -1,42 +1,19 @@
-CXX      = g++
+all : graphe_tests
 
-.DEFAULT_GOAL := test_graphe
+graphe_tests : obj/graphe_tests.o obj/Graphe.o obj/MReadWrite.o
+	g++ obj/graphe_tests.o obj/Graphe.o obj/MReadWrite.o -g -o graphe_tests.out
 
-SOURCES =
-SOURCES += Graphe.cpp
-SOURCES += MReadWrite.cpp
+obj/graphe_tests.o : graphe_tests.cpp Graphe.h  
+	g++ -Wall -g -c graphe_tests.cpp -o obj/graphe_tests.o
 
-OBJECTS = $(SOURCES:.cpp=.o)
+obj/Graphe.o : Graphe.cpp Graphe.h MReadWrite.h 
+	g++ -Wall -g -c Graphe.cpp -o obj/Graphe.o
 
-CXXFLAGS  += -g -Wall -std=c++11 -pedantic
-LDFLAGS +=
+obj/MReadWrite.o : MReadWrite.cpp MReadWrite.h Graphe.h
+	g++ -Wall -g -c MReadWrite.cpp -o obj/MReadWrite.o
 
-$(OBJECTS) : %.o : %.cpp
-	$(CXX) -MMD $(CXXFLAGS) -c $< -o $@
+clean :
+	-rm obj/*.o
 
-CLEAN_OBJECTS = $(OBJECTS)
-TARGETS =
-
-########## test_AVL ##########
-
-TEST_SOURCES = graphe_tests.cpp
-TEST_OBJECTS = $(TEST_SOURCES:.cpp=.o)
-
-test_graphe : $(TEST_OBJECTS) $(OBJECTS) $(HEADERS)
-	$(CXX) $(TEST_OBJECTS) $(OBJECTS) -o $@ $(LDFLAGS)
-
-$(TEST_OBJECTS): %.o : %.cpp
-	$(CXX) -MMD $(CXXFLAGS) -c $< -o $@
-
-all : test_graphe
-TARGETS += test_graphe
-CLEAN_OBJECTS += $(TEST_OBJECTS)
-
-########## nettoyage ##########
-
-DEPS = $(CLEAN_OBJECTS:.o=.d)
-
-clean:
-	@rm -f $(DEPS) $(TARGETS) $(CLEAN_OBJECTS)
-
--include $(DEPS)
+veryclean : clean
+	-rm *.out

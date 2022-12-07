@@ -120,24 +120,38 @@ bool Graphe::isVoisinEstExists(int _indice) {
 
 bool Graphe::isVoisinExists(int _indice, Cardinalite _cardi) {
     switch (_cardi) {
-        case Cardinalite::Nord : return isVoisinNordExists(_indice);
-        case Cardinalite::Ouest : return isVoisinOuestExists(_indice);
-        case Cardinalite::Sud : return isVoisinSudExists(_indice);
-        case Cardinalite::Est : return isVoisinEstExists(_indice);
+        case Cardinalite::Nord : 
+            return isVoisinNordExists(_indice);
+            break;
+        case Cardinalite::Ouest : 
+            return isVoisinOuestExists(_indice);
+            break;
+        case Cardinalite::Sud : 
+            return isVoisinSudExists(_indice);
+            break;
+        case Cardinalite::Est : 
+            return isVoisinEstExists(_indice);
+            break;
     }
+    return false;
 }
 
 int Graphe::getVoisin(int _indice, Cardinalite _cardi) {
     switch (_cardi) {
         case Cardinalite::Nord :
             return getNord(_indice);
+            break;
         case Cardinalite::Ouest :
             return getOuest(_indice);
+            break;
         case Cardinalite::Sud :
             return getSud(_indice);
+            break;
         case Cardinalite::Est :
             return getEst(_indice);
+            break;
     }
+    return -1;
 }
 
 int Graphe::getNord(int _indice) {
@@ -166,4 +180,9 @@ int Graphe::getEst(int _indice) {
         return _indice + 1;
     }
     return -1;
+}
+
+void Graphe::testRegression() {
+    // 1 ) getIndice
+
 }

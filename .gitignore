@@ -1,5 +1,3 @@
 .idea
 bin/*.o
 graphe_tests.out
-
-

@@ -82,6 +82,11 @@ private:
     int getEst(int _indice);
     // Renvoi l'altitude du voisin ouest
     int getOuest(int _indice);
+
+    // Procédure de test
+
+    void testRegression(); // affectue un série de tests 
+
 };
 
 

@@ -39,6 +39,10 @@ Graphe::Graphe(const char *_fichier) {
     */
 }
 
+Graphe::~Graphe() {
+    delete grille;
+}
+
 int* Graphe::setNewGraph(int _nbLigne, int _nbColonne) {
     nbLigne = _nbLigne;
     nbColonne = _nbColonne;
@@ -58,22 +62,35 @@ void Graphe::afficher() {
 
 void Graphe::testVoisins(int _indice) {
     std::cout << "\n";
+    std::cout << "Pour la valeur : " << getAltitude(_indice) << std::endl;
 
-    isVoisinExists(_indice, Cardinalite::Nord)
-    ? std::cout << "L'indice " << _indice << " a un voisin nord\n"
-    : std::cout << "L'indice " << _indice << " n'a pas de voisin nord\n";
+    if(isVoisinExists(_indice, Cardinalite::Nord)){
+        std::cout << "L'indice " << _indice << " a un voisin nord\n";
+        std::cout << "Son altitude est : " << getAltitude(getVoisin(_indice, Cardinalite::Nord)) << std::endl;
+    }else {
+        std::cout << "L'indice " << _indice << " n'a pas de voisin nord\n";
+    }
 
-    isVoisinExists(_indice, Cardinalite::Ouest)
-    ? std::cout << "L'indice " << _indice << " a un voisin ouest\n"
-    : std::cout << "L'indice " << _indice << " n'a pas de voisin ouest\n";
+    if(isVoisinExists(_indice, Cardinalite::Ouest)){
+        std::cout << "L'indice " << _indice << " a un voisin Ouest\n";
+        std::cout << "Son altitude est : " << getAltitude(getVoisin(_indice, Cardinalite::Ouest)) << std::endl;
+    }else {
+        std::cout << "L'indice " << _indice << " n'a pas de voisin Ouest\n";
+    }
 
-    isVoisinExists(_indice, Cardinalite::Sud)
-    ? std::cout << "L'indice " << _indice << " a un voisin sud\n"
-    : std::cout << "L'indice " << _indice << " n'a pas de voisin sud\n";
+    if(isVoisinExists(_indice, Cardinalite::Sud)){
+        std::cout << "L'indice " << _indice << " a un voisin Sud\n";
+        std::cout << "Son altitude est : " << getAltitude(getVoisin(_indice, Cardinalite::Sud)) << std::endl;
+    }else {
+        std::cout << "L'indice " << _indice << " n'a pas de voisin Sud\n";
+    }
 
-    isVoisinExists(_indice, Cardinalite::Est)
-    ? std::cout << "L'indice " << _indice << " a un voisin est\n"
-    : std::cout << "L'indice " << _indice << " n'a pas de voisin est\n";
+    if(isVoisinExists(_indice, Cardinalite::Est)){
+        std::cout << "L'indice " << _indice << " a un voisin Est\n";
+        std::cout << "Son altitude est : " << getAltitude(getVoisin(_indice, Cardinalite::Est)) << std::endl;
+    }else {
+        std::cout << "L'indice " << _indice << " n'a pas de voisin Est\n";
+    }
 }
 
 int Graphe::getIndice(int _ligne, int _colonne) {
@@ -90,6 +107,10 @@ int Graphe::getColonne(int _indice) {
 
 int Graphe::getAltitude(int _indice) {
     return grille[_indice];
+}
+
+void Graphe::setAltitude(int _indice, int _newAlti) {
+    grille[_indice] = _newAlti;
 }
 
 int Graphe::nbVoisins(int _indice) {
@@ -154,10 +175,41 @@ int Graphe::getVoisin(int _indice, Cardinalite _cardi) {
     return -1;
 }
 
+float Graphe::getValuationVoisin(int _indice, Cardinalite _cardi) {
+    std::cout << "Je suis l'indice : " << _indice << " pour la cardi : " << _cardi << std::endl;
+    int voisinIndice = 0;
+    switch (_cardi) {
+        case Cardinalite::Nord :
+            voisinIndice = getNord(_indice);
+            break;
+        case Cardinalite::Ouest :
+            voisinIndice = getOuest(_indice);
+            break;
+        case Cardinalite::Sud :
+            voisinIndice = getSud(_indice);
+            break;
+        case Cardinalite::Est :
+            voisinIndice = getEst(_indice);
+            break;
+    }
+    std::cout << "L'indice du voisin est : " << voisinIndice << std::endl;
+
+    std::cout << "L'altitude du voisin est : " << getAltitude(voisinIndice) << std::endl;
+
+    int currAltitude = getAltitude(_indice);
+    std::cout << "currAltitude est : " << currAltitude << std::endl;
+
+
+    int differenceAlti = currAltitude - getAltitude(voisinIndice);
+    differenceAlti *= differenceAlti;
+    return sqrt(1 + differenceAlti);
+}
+
 int Graphe::getNord(int _indice) {
     if(isVoisinExists(_indice, Cardinalite::Nord)){
         return _indice - nbColonne;
     }
+    std::cout << "\nPour l'indice : " << _indice << " Il n'y a pas de voisin Nord\n";
     return -1;
 }
 
@@ -165,6 +217,7 @@ int Graphe::getOuest(int _indice) {
     if(isVoisinExists(_indice, Cardinalite::Ouest)){
         return _indice - 1;
     }
+    std::cout << "\nPour l'indice : " << _indice << " Il n'y a pas de voisin Ouest\n";
     return -1;
 }
 
@@ -172,6 +225,7 @@ int Graphe::getSud(int _indice) {
     if(isVoisinExists(_indice, Cardinalite::Sud)){
         return _indice + nbColonne;
     }
+    std::cout << "\nPour l'indice : " << _indice << " Il n'y a pas de voisin Sud\n";
     return -1;
 }
 
@@ -179,6 +233,7 @@ int Graphe::getEst(int _indice) {
     if(isVoisinExists(_indice, Cardinalite::Est)){
         return _indice + 1;
     }
+    std::cout << "\nPour l'indice : " << _indice << " Il n'y a pas de voisin Est\n";
     return -1;
 }
 

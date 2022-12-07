@@ -17,6 +17,7 @@ public:
     Graphe(int _nbLigne, int _nbColonne, int _altitudes[]);
     // Prend un paramètre un ficher txt pour affecter les altitudes au graphe
     Graphe(const char * _fichier);
+    ~Graphe();
 
     /********************************/
     /*Fonctions et procédure public*/
@@ -30,6 +31,8 @@ public:
     
     // Affiche le status des voisins en fonction l'indice en paramètre
     void testVoisins(int _indice);
+    void setAltitude(int _indice, int _newAlti);
+    float getValuationVoisin(int _indice, Cardinalite _cardi);
 
 private:
     
@@ -69,6 +72,7 @@ private:
 
     // Renvoi l'altitude (int) du voisin de _indice (paramètre) pour une certaine cardinalité 
     int getVoisin(int _indice, Cardinalite _cardi);
+
 
     // Renvoi l'altitude du voisin nord
     int getNord(int _indice);

@@ -50,11 +50,18 @@ int* Graphe::setNewGraph(int _nbLigne, int _nbColonne) {
     return grille;
 }
 
+bool* Graphe::setLibTab(int _nbLigne, int _nbColonne) {
+    nbLigne = _nbLigne;
+    nbColonne = _nbColonne;
+    librairies = new bool [nbLigne*nbColonne];
+    return librairies;
+}
+
 void Graphe::afficher() {
     for (int i = 0; i < nbLigne; ++i) {
         for (int j = 0; j < nbColonne; ++j) {
             int indice = getIndice(i, j);
-            std::cout << getAltitude(indice) << " ";
+            std::cout << (librairies[indice] ? "L" : "") << getAltitude(indice) << " ";
         }
         std::cout << std::endl;
     }

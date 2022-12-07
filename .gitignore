@@ -1,6 +1,5 @@
 .idea
-*.o
-*.d
-test_graphe
+bin/*.o
+*.out
 
 

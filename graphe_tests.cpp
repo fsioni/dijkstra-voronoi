@@ -1,4 +1,6 @@
 #include "Graphe.h"
+#include <iostream>
+
 
 int main(){
     Graphe g1;
@@ -6,7 +8,8 @@ int main(){
 
     Graphe g2("./exempleGraphe.txt");
     g2.afficher();
-    /*
+    std::cout << g2.getValuationVoisin(3, Cardinalite::Sud) << std::endl;
+     /*
     g1.testVoisins(0);
     g1.testVoisins(1);
     g1.testVoisins(6);

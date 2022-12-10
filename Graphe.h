@@ -23,7 +23,7 @@ public:
     /*Fonctions et procédure public*/
     /******************************/
 
-    // Initialise le tableau avec le nombre de lignes et de colones passés en paramètre 
+    // Initialise le tableau avec le nombre de lignes et de colonnes passés en paramètre 
     int* setNewGraph(int _nbLigne, int _nbColonne);
 
     bool* setLibTab(int _nbLigne, int _nbColonne);
@@ -36,6 +36,7 @@ public:
     void setAltitude(int _indice, int _newAlti);
     double getValuationVoisin(int _indice, Cardinalite _cardi);
     void applyDijsktra();
+    void testRegression(); // affectue un série de tests 
 
 private:
     
@@ -74,7 +75,7 @@ private:
     // Renvoi vrais si l'indice à un voisin est, faux sinon
     bool isVoisinEstExists(int _indice);
 
-    // Renvoi l'altitude (int) du voisin de _indice (paramètre) pour une certaine cardinalité 
+    // Renvoi l'indice (int) du voisin de _indice (paramètre) pour une certaine cardinalité 
     int getVoisin(int _indice, Cardinalite _cardi);
 
 
@@ -88,11 +89,6 @@ private:
     int getOuest(int _indice);
 
     void printVoronoi(std::vector<double> valuation, std::vector<int> precedent);
-
-    // Procédure de test
-
-    void testRegression(); // affectue un série de tests 
-
 };
 
 

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 #include <queue>
+#include <assert.h>
 #include "MReadWrite.h"
 
 
@@ -29,15 +30,6 @@ Graphe::Graphe(int _nbLigne, int _nbColonne, int *_altitudes) {
 
 Graphe::Graphe(const char *_fichier) {
     textToTab(_fichier, this);
-/*
-    std::cout << "Nb ligne : " << nbLigne << std::endl;
-    std::cout << "Nb colonnes : " << nbColonne << std::endl;
-    for(int i = 0; i<nbLigne; i++){
-        for (int j = 0; j < nbColonne; ++j) {
-            std::cout << grille[0] << std::endl;
-        }
-    }
-    */
 }
 
 Graphe::~Graphe() {
@@ -132,7 +124,7 @@ int Graphe::nbVoisins(int _indice) {
 }
 
 bool Graphe::isVoisinNordExists(int _indice) {
-    return _indice-nbColonne > 0;
+    return _indice-nbColonne >= 0;
 }
 
 bool Graphe::isVoisinOuestExists(int _indice) {
@@ -241,14 +233,169 @@ int Graphe::getEst(int _indice) {
 
 void Graphe::testRegression() {
 
-}
+    // 1) test pour le constructeur de graphe avec 3 paramètre
+    // -> setNewGraph
 
-struct PQElement {
+    int tab[6] = {1,2,3,4,5,6};
+    Graphe gExemple(2,3,tab);
+    assert(gExemple.nbLigne == 2);
+    assert(gExemple.nbColonne == 3);
+
+    for (int i = 0; i < 4; ++i) { // test grille 
+        assert(gExemple.grille[i] == i+1);
+    } 
+    
+    // 2) test pour le constructeur de graphe avec fichier 
+    // -> setLibTab
+
+    Graphe gExemple2("./data/ex2Graphe.txt"); // constructeur avec ficher
+    assert (gExemple2.nbLigne == 3);
+    assert (gExemple2.nbColonne == 4);
+
+    for (int i = 0; i < gExemple2.nbColonne*gExemple2.nbLigne; ++i) { // test grille 
+        assert(gExemple2.grille[i] == i);
+    }     
+    // Test pour l'emplacement des librairies
+    assert (gExemple2.librairies[0] == false);
+    assert (gExemple2.librairies[1] == false);
+    assert (gExemple2.librairies[2] == false);
+    assert (gExemple2.librairies[3] == false);
+    assert (gExemple2.librairies[4] == false);
+    assert (gExemple2.librairies[5] == false);
+    assert (gExemple2.librairies[6]);
+    assert (gExemple2.librairies[7] == false);
+    assert (gExemple2.librairies[8] == false);
+    assert (gExemple2.librairies[9] == false);
+    assert (gExemple2.librairies[10] == false);
+    assert (gExemple2.librairies[11]);
+
+    // 3) Test afficher -> affiche les altitudes du graphe
+
+    std::cout<<"Test procédure affiche qui affiche les altitudes du graphe :"<<std::endl;
+    gExemple2.afficher();
+
+    // 4) Test getIndice -> prend en paramètre la ligne et la colonne et renvoie l'indice correspond pour un tableau 1D
+
+    for (int i = 0; i < gExemple2.nbLigne; ++i){
+        for (int j = 0; j < gExemple2.nbColonne; ++j) {
+            assert(gExemple2.getIndice(i,j) == i * gExemple2.nbColonne + j);
+        }
+    }
+    
+    // 5) Test getLigne -> prend en paramètre un indice (du tableau 1D) et renvoit la ligne à laquelle appartient cette indice
+
+    for (int i = 0; i < 12; ++i){
+        assert(gExemple2.getLigne(i) == floor(i / gExemple2.nbColonne));
+    }
+
+    // 6) Test getColonne -> prend en paramètre un indice (tableau 1D) et renvoit la colonne à laquelle appartient cette indice
+
+    for (int i = 0; i < 12; ++i){
+        assert(gExemple2.getColonne(i) == i % gExemple2.nbColonne);
+    }
+
+    // 7) Test nbVoisins -> prend en paramètre un indice (tableau 1D) et renvoi le nombre de voisin qui existe
+
+    assert (gExemple2.nbVoisins(0) == 2);
+    assert (gExemple2.nbVoisins(1) == 3);
+    assert (gExemple2.nbVoisins(2) == 3);
+    assert (gExemple2.nbVoisins(3) == 2);
+    assert (gExemple2.nbVoisins(4) == 3); 
+    assert (gExemple2.nbVoisins(5) == 4);
+    assert (gExemple2.nbVoisins(7) == 3);
+    assert (gExemple2.nbVoisins(8) == 2);
+    assert (gExemple2.nbVoisins(10) == 3);
+    assert (gExemple2.nbVoisins(11) == 2);
+
+    // 8) Test isVoisinNordExists -> prend en paramètre un indice et renvoie vrais si sont voisin nord exist
+
+    assert(gExemple2.isVoisinNordExists(0) == false);
+    assert(gExemple2.isVoisinNordExists(3) == false);
+    assert(gExemple2.isVoisinNordExists(4) == true);
+    assert(gExemple2.isVoisinNordExists(5) == true);
+    assert(gExemple2.isVoisinNordExists(9) == true);
+    assert(gExemple2.isVoisinNordExists(11) == true);
+
+    // 9) Test isVoisinSudExists -> prend en paramètre un indice et renvoie vrais si sont voisin sud exist
+
+    assert(gExemple2.isVoisinSudExists(0) == true);
+    assert(gExemple2.isVoisinSudExists(3) == true);
+    assert(gExemple2.isVoisinSudExists(5) == true);
+    assert(gExemple2.isVoisinSudExists(8) == false);
+    assert(gExemple2.isVoisinSudExists(11) == false);
+
+    // 10) Test isVoisinEstExists -> prend en paramètre un indice et renvoie vrais si sont voisin est exist
+
+    assert(gExemple2.isVoisinEstExists(0) == true);
+    assert(gExemple2.isVoisinEstExists(5) == true);
+    assert(gExemple2.isVoisinEstExists(7) == false);
+    assert(gExemple2.isVoisinEstExists(8) == true);
+    assert(gExemple2.isVoisinEstExists(11) == false);
+
+    // 11) Test isVoisinOuestExists -> prend en paramètre un indice et renvoie vrais si sont voisin ouest exist
+
+    assert(gExemple2.isVoisinOuestExists(0) == false);
+    assert(gExemple2.isVoisinOuestExists(5) == true);
+    assert(gExemple2.isVoisinOuestExists(3) == true);
+    assert(gExemple2.isVoisinOuestExists(8) == false);
+    assert(gExemple2.isVoisinOuestExists(11) == true);
+
+    // 12) Test getNord -> prend en paramètre un indice et renvoie l'indice de sont voisin nord si il existe (-1 sinon)
+
+    assert(gExemple2.getNord(0) == -1);
+    assert(gExemple2.getNord(7) == 3);
+    assert(gExemple2.getNord(4) == 0);
+    assert(gExemple2.getNord(6) == 2);
+    assert(gExemple2.getNord(11) == 7);
+
+    // 13) Test getSud -> prend en paramètre un indice et renvoie l'indice de sont voisin sud si il existe (-1 sinon)
+
+    assert(gExemple2.getSud(0) == 4);
+    assert(gExemple2.getSud(7) == 11);
+    assert(gExemple2.getSud(4) == 8);
+    assert(gExemple2.getSud(6) == 10);
+    assert(gExemple2.getSud(11) == -1);
+
+    // 14) Test getEst -> prend en paramètre un indice et renvoie l'indice de sont voisin est si il existe (-1 sinon)
+
+    assert(gExemple2.getEst(0) == 1);
+    assert(gExemple2.getEst(7) == -1);
+    assert(gExemple2.getEst(4) == 5);
+    assert(gExemple2.getEst(6) == 7);
+    assert(gExemple2.getEst(11) == -1);
+
+    // 15) Test getOuest -> prend en paramètre un indice et renvoie l'indice de sont voisin ouest si il existe (-1 sinon)
+
+    assert(gExemple2.getOuest(0) == -1);
+    assert(gExemple2.getOuest(7) == 6);
+    assert(gExemple2.getOuest(4) == -1);
+    assert(gExemple2.getOuest(6) == 5);
+    assert(gExemple2.getOuest(11) == 10);
+
+    // 16) Test isVoisinExists -> prend en paramètre un indice et un cardinalité (Nord, sud, est et ouest), renvoi vrais si le voison pour
+    // la cardinalité passé en paramètre existe.
+
+    assert((gExemple2.getNord(4) == 0) && (gExemple2.isVoisinExists(4,Cardinalite::Nord) == true));
+    assert((gExemple2.getSud(4) == 8) && (gExemple2.isVoisinExists(4,Cardinalite::Sud) == true));
+    assert((gExemple2.getEst(4) == 5) && (gExemple2.isVoisinExists(4,Cardinalite::Est) == true));
+    assert((gExemple2.getOuest(4) == -1) && (gExemple2.isVoisinExists(4,Cardinalite::Ouest) == false));
+
+    //17) Test getVoisin -> prend un paramètre un indice et une cardinalité et, renvoi l'indice du voisin pour cette cardinalité
+
+    assert((gExemple2.getNord(0) == -1) && (gExemple2.getVoisin(0,Cardinalite::Nord) == -1));
+    assert((gExemple2.getSud(0) == 4) && (gExemple2.getVoisin(0,Cardinalite::Sud) == 4));
+    assert((gExemple2.getEst(0) == 1) && (gExemple2.getVoisin(0,Cardinalite::Est) == 1));
+    assert((gExemple2.getOuest(0) == -1) && (gExemple2.getVoisin(0,Cardinalite::Ouest) == -1));
+}   
+
+struct PQElement { // element de notre file de priorité
     int indice;
     double valuation;
-    PQElement(int _indice, double _valuation) : indice(_indice), valuation(_valuation) {}
-    bool operator<(const PQElement& _other) const {
-        return valuation > _other.valuation;
+
+    PQElement(int _indice, double _valuation) : indice(_indice), valuation(_valuation) {} // constructeur
+
+    bool operator<(const PQElement& _other) const { // surcharge de l'opérateur de comparaison
+        return valuation < _other.valuation;
     }
 };
 
@@ -257,49 +404,49 @@ void Graphe::applyDijsktra() {
     std::vector<double> valuation(taille);
     std::vector<int> precedent(taille);
     for (int i = 0; i < taille; ++i) {
-        precedent[i] = i;
-        valuation[i] = -1;
+        precedent[i] = i; // initialisation chaque élément du tableau à pour précédent lui même
+        valuation[i] = -1; // initialisation du tableau valuation 
     }
 
-    std::priority_queue<PQElement> aTraiter;
+    std::priority_queue<PQElement> aTraiter; // file de priorité (celui tous en haut de la pile est celui qu'on doit traiter)
 
-    for (int i = 0; i < taille; ++i) {
-        if(librairies[i]){
-            valuation[i] = 0;
-            precedent[i] = -1;
+    for (int i = 0; i < taille; ++i) { // initialise l'emplacement des différentes librairie
+        if(librairies[i]){ // si il y a une librairie ici
+            valuation[i] = 0; // alors la plus proche librairie c'est elle même
+            precedent[i] = -1; // un librairie n'a donc pas de precedent
             aTraiter.push(PQElement(i, 0));
         }
     }
 
     while(!aTraiter.empty()){
-        PQElement curr = aTraiter.top();
-        aTraiter.pop();
+        PQElement curr = aTraiter.top(); // je vais traiter mon élément avec la plus grande priorité
+        aTraiter.pop(); // donc je peux l'enlever
 
-        for (int i = 0; i < 4; ++i) {
-            if(isVoisinExists(curr.indice, (Cardinalite)i)){
-                int voisinIndice = getVoisin(curr.indice, (Cardinalite)i);
-                double valuationVoisin = getValuationVoisin(curr.indice, (Cardinalite)i);
-                double dv = valuation[voisinIndice];
-                double dc = valuation[curr.indice];
-                double dnv = dc + valuationVoisin;
-                if(precedent[voisinIndice] == voisinIndice || dnv < dv){
-                    precedent[voisinIndice] = curr.indice;
-                    valuation[voisinIndice] = dnv;
-                    aTraiter.push(PQElement(voisinIndice, dnv));
-                }
+        for (int i = 0; i < 4; ++i) { // pour tous les voisin (Nord sud est ouest)
+            if(isVoisinExists(curr.indice, (Cardinalite)i)){ // si une voison exist pour cette cardinalité
+                int voisinIndice = getVoisin(curr.indice, (Cardinalite)i); // je récupère son indice
+                double valuationVoisin = getValuationVoisin(curr.indice, (Cardinalite)i); // je récupère sa valuation
+                double dv = valuation[voisinIndice]; // on récupère la valuation du voisin
+                double dc = valuation[curr.indice]; // on récupère la valuation de la où je me trouve
+                double dnv = dc + valuationVoisin; // je calcule la distance entre ces deux points
+                if(precedent[voisinIndice] == voisinIndice || dnv < dv){ // si je n'ai pas de précédent ou que ma nouvelle distance est plus petite que la précédente valuation de mon voisin 
+                    precedent[voisinIndice] = curr.indice; // mon nouveau point le plus proche devient celui sur lequel j'ai lancer le traitement 
+                    valuation[voisinIndice] = dnv; // ma distance qui me sépare de la librairie la plus proche est mis à jour
+                    aTraiter.push(PQElement(voisinIndice, dnv)); // on le passe chez les noirs 
                 }
             }
         }
+    }
 
     //Afficher les tableaux de valuation et de precedent
-    std::cout << "Valuation : \n";
+    std::cout <<"\n Valuation : \n";
     for (int i = 0; i < taille; ++i) {
         std::cout << valuation[i] << " ";
         if(i%nbColonne == nbColonne-1){
             std::cout << "\n";
         }
     }
-    std::cout << "\nPrecedent : \n";
+    std::cout << "\n Precedent : \n";
     for (int i = 0; i < taille; ++i) {
         std::cout << precedent[i] << " ";
         if(i%nbColonne == nbColonne-1){

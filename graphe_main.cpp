@@ -6,19 +6,22 @@ int main () {
     Graphe g1;
     //g1.afficher();
 
-    Graphe g2("./data/exempleGraphe.txt");
+    Graphe g2("./data/ex3Graphe.txt");
     g2.afficher();
-    std::cout << g2.getValuationVoisin(3, Cardinalite::Sud) << std::endl;
+
     g2.applyDijsktra();
-     /*
-    g1.testVoisins(0);
-    g1.testVoisins(1);
-    g1.testVoisins(6);
-    g1.testVoisins(7);
-    g1.testVoisins(11);
-    g1.testVoisins(17);
-    g1.testVoisins(18);
-    g1.testVoisins(23);*/
+
+    /*int i, j, n;
+
+    for (i = 0; i < 11; i++) {
+        for (j = 0; j < 10; j++) {
+            n = 10*i + j; // Certaines valeurs de n correspondent Ã  des couleurs
+            if (n > 108) break;
+            std::cout <<"\033[1;"<<n<<"m"<<" Couleur " << n << "\033[0m";
+            // On rÃ©cupÃ¨re l'indice n de la couleur d'affichage puis on affiche n
+        }
+        std::cout << std::endl;
+    }*/
     
     return 0;
 }

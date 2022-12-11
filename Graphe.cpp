@@ -453,13 +453,39 @@ void Graphe::applyDijsktra() {
             std::cout << "\n";
         }
     }
+
     printVoronoi(valuation, precedent);
 }
 
 void Graphe::printVoronoi(std::vector<double> valuation, std::vector<int> precedent) {
     std::cout << "\n\n";
-    for (int i = 0; i < nbColonne*nbLigne; ++i) {
+    int librairieCount = 1;
+    int tabColors[nbLigne*nbColonne];
+    int indicePred;
 
+    for (int i = 0; i < nbLigne*nbColonne; ++i) {
+        if (precedent[i] == -1) {
+            if(librairieCount+40 > 46) {
+                std::cout<<"J'ai plus de couleur pour peindre les librairies";
+                break;
+            }
+            tabColors[i] = librairieCount+40;
+            librairieCount++;
+        }
     }
 
+    for (int i = 0; i < nbLigne*nbColonne; ++i) {  // a
+        if (precedent[i] == -1) {
+            std::cout <<"\033[1;"<<tabColors[i]<<"m"<<"L"<<librairieCount<< "\033[0m"<<" ";
+        } else {
+            indicePred = precedent[i];
+            while (precedent[indicePred] != -1) {
+                indicePred = precedent[indicePred];
+            }
+            std::cout <<"\033[1;"<<tabColors[indicePred]-10<<"m"<<precedent[i]<< "\033[0m"<<" ";
+        }
+        if(i%nbColonne == nbColonne-1){
+            std::cout << "\n";
+        }
+    }
 }

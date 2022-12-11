@@ -476,7 +476,7 @@ void Graphe::printVoronoi(std::vector<double> valuation, std::vector<int> preced
 
     for (int i = 0; i < nbLigne*nbColonne; ++i) {  // a
         if (precedent[i] == -1) {
-            std::cout <<"\033[1;"<<tabColors[i]<<"m"<<"L"<<librairieCount<< "\033[0m"<<" ";
+            std::cout <<"\033[1;"<<tabColors[i]<<"m"<<"L"<< "\033[0m"<<" ";
         } else {
             indicePred = precedent[i];
             while (precedent[indicePred] != -1) {

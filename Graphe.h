@@ -36,6 +36,7 @@ public:
     void setAltitude(int _indice, int _newAlti);
     double getValuationVoisin(int _indice, Cardinalite _cardi);
     void applyDijsktra();
+    void VoronoiLivraison();
     void testRegression(); // affectue un série de tests 
 
 private:
@@ -89,6 +90,7 @@ private:
     int getOuest(int _indice);
 
     void printVoronoi(std::vector<double> valuation, std::vector<int> precedent);
+    void applyDijsktraVoronoi();
 };
 
 

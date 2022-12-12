@@ -10,7 +10,8 @@ int main () {
     Graphe g2("./data/exempleGraphe.txt");
     g2.afficher();
 
-    //g2.applyDijsktra();
+    g2.applyDijsktra();
+    g2.VoronoiLivraison();
 
     /*std::cout<<std::setw(6);
     std::cout <<"\033[30;"<<41<<"m"<<" "<< "\033[0m";

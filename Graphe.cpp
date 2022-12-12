@@ -4,6 +4,7 @@
 #include <queue>
 #include <assert.h>
 #include "MReadWrite.h"
+#include <iomanip>
 
 
 Graphe::Graphe() {
@@ -43,10 +44,10 @@ int* Graphe::setNewGraph(int _nbLigne, int _nbColonne) {
     return grille;
 }
 
-bool* Graphe::setLibTab(int _nbLigne, int _nbColonne) {
+int* Graphe::setLibTab(int _nbLigne, int _nbColonne) {
     nbLigne = _nbLigne;
     nbColonne = _nbColonne;
-    librairies = new bool [nbLigne*nbColonne];
+    librairies = new int [nbLigne*nbColonne];
     return librairies;
 }
 
@@ -54,7 +55,7 @@ void Graphe::afficher() {
     for (int i = 0; i < nbLigne; ++i) {
         for (int j = 0; j < nbColonne; ++j) {
             int indice = getIndice(i, j);
-            std::cout << (librairies[indice] ? "L" : "") << getAltitude(indice) << " ";
+            std::cout << (librairies[indice] != -1 ? "L" : "") << getAltitude(indice) << " ";
         }
         std::cout << std::endl;
     }
@@ -476,16 +477,21 @@ void Graphe::printVoronoi(std::vector<double> valuation, std::vector<int> preced
 
     for (int i = 0; i < nbLigne*nbColonne; ++i) {  // a
         if (precedent[i] == -1) {
-            std::cout <<"\033[1;"<<tabColors[i]<<"m"<<"L"<< "\033[0m"<<" ";
+            std::cout<<std::setw(5);
+            std::cout <<"\033[30;"<<tabColors[i]<<"m"<<" "<< "\033[0m";
+            std::cout <<"\033[30;"<<tabColors[i]<<"m"<<"LIB "<< "\033[0m";
+            std::cout <<"\033[30;"<<tabColors[i]<<"m"<<" "<< "\033[0m";
         } else {
             indicePred = precedent[i];
             while (precedent[indicePred] != -1) {
                 indicePred = precedent[indicePred];
             }
-            std::cout <<"\033[1;"<<tabColors[indicePred]-10<<"m"<<precedent[i]<< "\033[0m"<<" ";
+            std::cout.precision(4);
+            std::cout<<std::setw(5);
+            std::cout <<"\033[30;"<<tabColors[indicePred]<<"m"<<valuation[i]<<" "<< "\033[0m";
         }
         if(i%nbColonne == nbColonne-1){
-            std::cout << "\n";
+            std::cout<<std::endl;
         }
     }
 }

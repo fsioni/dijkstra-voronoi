@@ -1,15 +1,22 @@
 #include "Graphe.h"
 #include <iostream>
+#include <iomanip>
 
 int main () {
 
     Graphe g1;
     //g1.afficher();
 
-    Graphe g2("./data/ex3Graphe.txt");
+    Graphe g2("./data/exempleGraphe.txt");
     g2.afficher();
 
-    g2.applyDijsktra();
+    //g2.applyDijsktra();
+
+    /*std::cout<<std::setw(6);
+    std::cout <<"\033[30;"<<41<<"m"<<" "<< "\033[0m";
+    std::cout <<"zebi";
+    std::cout<<std::setw(9);
+    std::cout <<"|"<<std::endl;*/
 
     /*int i, j, n;
 

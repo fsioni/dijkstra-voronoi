@@ -26,7 +26,7 @@ public:
     // Initialise le tableau avec le nombre de lignes et de colonnes passés en paramètre 
     int* setNewGraph(int _nbLigne, int _nbColonne);
 
-    bool* setLibTab(int _nbLigne, int _nbColonne);
+    int* setLibTab(int _nbLigne, int _nbColonne);
 
     // Affiche le graphe (les altitudes)
     void afficher();
@@ -46,7 +46,7 @@ private:
 
     int nbLigne, nbColonne; // nombre de ligne & de colonne
     int *grille; // tableau 1D d'entier
-    bool *librairies; // tableau de booléén (vrai si il ya un librairie)
+    int *librairies; // tableau de booléén (vrai si il ya un librairie)
 
     /*******************************/
     /*Fonction et procédure membre*/

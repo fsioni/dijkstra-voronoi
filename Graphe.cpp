@@ -55,7 +55,7 @@ void Graphe::afficher() {
     for (int i = 0; i < nbLigne; ++i) {
         for (int j = 0; j < nbColonne; ++j) {
             int indice = getIndice(i, j);
-            std::cout << (librairies[indice] != -1 ? "L" : "") << getAltitude(indice) << " ";
+            std::cout << (librairies[indice] != -1 ? "L("+std::to_string(librairies[indice])+")" : "") << getAltitude(indice) << " ";
         }
         std::cout << std::endl;
     }

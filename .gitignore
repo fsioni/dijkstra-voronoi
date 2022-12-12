@@ -1,3 +1,4 @@
 .idea
 bin/*.out
 obj/*.o
+.vscode

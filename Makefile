@@ -1,9 +1,9 @@
-all : bin/main_graphe bin/tests_graphe 
+all : bin/main_graphe.out bin/tests_graphe.out
 
-bin/tests_graphe : obj/graphe_tests.o obj/Graphe.o obj/MReadWrite.o
+bin/tests_graphe.out : obj/graphe_tests.o obj/Graphe.o obj/MReadWrite.o
 	g++ -Wall -g -std=c++11 obj/graphe_tests.o obj/Graphe.o obj/MReadWrite.o -o bin/tests_graphe.out
 
-bin/main_graphe : obj/graphe_main.o obj/Graphe.o obj/MReadWrite.o
+bin/main_graphe.out : obj/graphe_main.o obj/Graphe.o obj/MReadWrite.o
 	g++ -Wall -g -std=c++11 obj/graphe_main.o obj/Graphe.o obj/MReadWrite.o -o bin/main_graphe.out
 
 obj/graphe_tests.o : src/graphe_tests.cpp src/Graphe.h  

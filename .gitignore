@@ -1,6 +1,8 @@
+#IDE folders
 .idea
-bin/*.out
-obj/*.o
-obj/*
 .vscode
+
+#Compiled files
+bin/*
+obj/*
 

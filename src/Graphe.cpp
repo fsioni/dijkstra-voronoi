@@ -462,36 +462,17 @@ void Graphe::applyDijsktra() {
 
 void Graphe::printVoronoi(std::vector<double> valuation, std::vector<int> precedent) {
     std::cout << "\n\n";
-    int librairieCount = 1;
-    int tabColors[nbLigne*nbColonne];
     int indicePred;
 
-    for (int i = 0; i < nbLigne*nbColonne; ++i) {
-        if (precedent[i] == -1) {
-            if(librairieCount+40 > 46) {
-                std::cout<<"J'ai plus de couleur pour peindre les librairies";
-                break;
-            }
-            tabColors[i] = librairieCount+40;
-            librairieCount++;
-        }
-    }
-
-
     for (int i = 0; i < nbLigne*nbColonne; ++i) {  // a
-        if (precedent[i] == -1) {
-            std::cout<<std::setw(5);
-            std::cout <<"\033[30;"<<tabColors[i]<<"m"<<" "<< "\033[0m";
-            std::cout <<"\033[30;"<<tabColors[i]<<"m"<<"LIB "<< "\033[0m";
-            std::cout <<"\033[30;"<<tabColors[i]<<"m"<<" "<< "\033[0m";
+        if (precedent[i] == -1) { 
+            std::cout <<"\033[48;5;"<<i%256<<"m"<<std::setw(8)<<"  LIB   "<< "\033[0m";
         } else {
             indicePred = precedent[i];
             while (precedent[indicePred] != -1) {
                 indicePred = precedent[indicePred];
             }
-            std::cout.precision(4);
-            std::cout<<std::setw(5);
-            std::cout <<"\033[30;"<<tabColors[indicePred]<<"m"<<valuation[i]<<" "<< "\033[0m";
+            std::cout <<"\033[48;5;"<<indicePred%256<<"m"<<std::setw(8)<<valuation[i]<<" "<< "\033[0m";
         }
         if(i%nbColonne == nbColonne-1){
             std::cout<<std::endl;

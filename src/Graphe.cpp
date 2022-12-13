@@ -9,22 +9,24 @@
 
 Graphe::Graphe() {
     setNewGraph(4, 6);
-
+    setLibTab(4,6);
     for (int i = 0; i < nbLigne; ++i) {
         for (int j = 0; j < nbColonne; ++j) {
             int indice = getIndice(i, j);
             grille[indice] = indice;
+            librairies[indice] = -1;
         }
     }
 }
 
 Graphe::Graphe(int _nbLigne, int _nbColonne, int *_altitudes) {
     setNewGraph(_nbLigne, _nbColonne);
-
+    setLibTab(_nbLigne,_nbColonne);
     for (int i = 0; i < nbLigne; ++i) {
         for (int j = 0; j < nbColonne; ++j) {
             int indice = getIndice(i, j);
             grille[indice] = _altitudes[indice];
+            librairies[indice] = -1;
         }
     }
 }
@@ -35,6 +37,9 @@ Graphe::Graphe(const char *_fichier) {
 
 Graphe::~Graphe() {
     delete grille;
+    grille = nullptr;
+    delete librairies;
+    librairies = nullptr;
 }
 
 int *Graphe::setNewGraph(int _nbLigne, int _nbColonne) {
@@ -388,6 +393,8 @@ void Graphe::testRegression() {
     assert((gExemple2.getSud(0) == 4) && (gExemple2.getVoisin(0, Cardinalite::Sud) == 4));
     assert((gExemple2.getEst(0) == 1) && (gExemple2.getVoisin(0, Cardinalite::Est) == 1));
     assert((gExemple2.getOuest(0) == -1) && (gExemple2.getVoisin(0, Cardinalite::Ouest) == -1));
+
+    std::cout<<"-----------------------------------------------FIN-TEST-REG-----------------------------------------------------"<<std::endl<<std::endl;
 }
 
 struct PQElement { // element de notre file de priorité
@@ -434,8 +441,7 @@ void Graphe::applyDijsktra() {
                 double dv = valuation[voisinIndice]; // on récupère la valuation actuelle du voisin dans l'algo de dijsktra
                 double dc = valuation[curr.indice]; // on récupère la valuation actuelle de la où je me trouve dans l'algo de dijsktra
                 double dnv = dc + valuationVoisin; // je calcule la distance entre ces deux points
-                if (precedent[voisinIndice] == voisinIndice || dnv <
-                                                               dv) { // si je n'ai pas de précédent ou que ma nouvelle distance est plus petite que la précédente valuation de mon voisin
+                if (precedent[voisinIndice] == voisinIndice || dnv < dv) { // si je n'ai pas de précédent ou que ma nouvelle distance est plus petite que la précédente valuation de mon voisin
                     precedent[voisinIndice] = curr.indice; // mon nouveau point le plus proche devient celui sur lequel j'ai lancer le traitement 
                     valuation[voisinIndice] = dnv; // ma distance qui me sépare de la librairie la plus proche est mis à jour
                     aTraiter.push(PQElement(voisinIndice, dnv, curr.cout)); // on le passe chez les noirs
@@ -460,7 +466,7 @@ void Graphe::applyDijsktra() {
         }
     }
 
-    std::cout << "\nVoronoi avec Dijkstra simple";
+    std::cout << "\nVoronoi avec Dijkstra simple :";
     printVoronoi(valuation, precedent);
 }
 
@@ -510,13 +516,11 @@ void Graphe::applyDijsktraVoronoi() {
         for (int i = 0; i < 4; ++i) { // pour tous les voisin (Nord sud est ouest)
             if (isVoisinExists(curr.indice, (Cardinalite) i)) { // si une voison exist pour cette cardinalité
                 int voisinIndice = getVoisin(curr.indice, (Cardinalite) i); // je récupère son indice
-                double valuationVoisin = getValuationVoisin(curr.indice,
-                                                            (Cardinalite) i); // je récupère sa valuation sur le graphe
+                double valuationVoisin = getValuationVoisin(curr.indice, (Cardinalite) i); // je récupère sa valuation sur le graphe
                 double dv = valuation[voisinIndice]; // on récupère la valuation actuelle du voisin dans l'algo de dijsktra
                 double dc = valuation[curr.indice]; // on récupère la valuation actuelle de la où je me trouve dans l'algo de dijsktra
                 double dnv = dc + valuationVoisin * curr.cout; // je calcule la distance entre ces deux points
-                if (precedent[voisinIndice] == voisinIndice || dnv <
-                                                               dv) { // si je n'ai pas de précédent ou que ma nouvelle distance est plus petite que la précédente valuation de mon voisin
+                if (precedent[voisinIndice] == voisinIndice || dnv < dv) { // si je n'ai pas de précédent ou que ma nouvelle distance est plus petite que la précédente valuation de mon voisin
                     precedent[voisinIndice] = curr.indice; // mon nouveau point le plus proche devient celui sur lequel j'ai lancer le traitement
                     valuation[voisinIndice] = dnv; // ma distance qui me sépare de la librairie la plus proche est mis à jour
                     aTraiter.push(PQElement(voisinIndice, dnv, curr.cout)); // on le passe chez les noirs
@@ -524,7 +528,7 @@ void Graphe::applyDijsktraVoronoi() {
             }
         }
     }
-    std::cout << "\nVoronoi avec cout :";
+    std::cout << "\nVoronoi avec coût :";
     printVoronoi(valuation, precedent);
 }
 

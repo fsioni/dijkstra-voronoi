@@ -31,23 +31,29 @@ public:
     // Initialise le tableau avec le nombre de lignes et de colonnes passés en paramètre 
     int *setNewGraph(int _nbLigne, int _nbColonne);
 
+    // Initialise le tableau de librairie
     int *setLibTab(int _nbLigne, int _nbColonne);
 
-    // Affiche le graphe (les altitudes)
+    // Affiche le graphe (les altitudes & l'emplacement des librairies)
     void afficher();
 
     // Affiche le status des voisins en fonction l'indice en paramètre
     void testVoisins(int _indice);
 
+    // Modifie on affecter une altitude à un indice
     void setAltitude(int _indice, int _newAlti);
 
+    // Renvoie la valuation du voisin depuis l'indice passer en paramètre
     double getValuationVoisin(int _indice, Cardinalite _cardi);
 
+    // Fonction que calcule les plus cours chemin vers les librairies les plus proches en fonction de l'altitude
     void applyDijsktra();
 
+    // Semblable à applyDijsktra mais prend en compte la notion de coût
     void VoronoiLivraison();
 
-    void testRegression(); // affectue un série de tests
+    // affectue une série de tests
+    void testRegression(); 
 
 private:
 
@@ -57,7 +63,7 @@ private:
 
     int nbLigne, nbColonne; // nombre de ligne & de colonne
     int *grille; // tableau 1D d'entier
-    int *librairies; // tableau de booléén (vrai si il ya un librairie)
+    int *librairies; // tableau d'entier (-1 si ce n'est pas un librairie)
 
     /*******************************/
     /*Fonction et procédure membre*/
@@ -81,21 +87,20 @@ private:
     // Renvoi vrai si le voisin de l'indice, pour une cardinalité passer en paramètre existe, faux sinon
     bool isVoisinExists(int _indice, Cardinalite _cardi);
 
-    // Renvoi vrais si l'indice à un voisin nord, faux sinon
+    // Renvoi vrai si l'indice à un voisin nord, faux sinon
     bool isVoisinNordExists(int _indice);
 
-    // Renvoi vrais si l'indice à un voisin ouest, faux sinon
+    // Renvoi vrai si l'indice à un voisin ouest, faux sinon
     bool isVoisinOuestExists(int _indice);
 
-    // Renvoi vrais si l'indice à un voisin sud, faux sinon
+    // Renvoi vrai si l'indice à un voisin sud, faux sinon
     bool isVoisinSudExists(int _indice);
 
-    // Renvoi vrais si l'indice à un voisin est, faux sinon
+    // Renvoi vrai si l'indice à un voisin est, faux sinon
     bool isVoisinEstExists(int _indice);
 
     // Renvoi l'indice (int) du voisin de _indice (paramètre) pour une certaine cardinalité 
     int getVoisin(int _indice, Cardinalite _cardi);
-
 
     // Renvoi l'altitude du voisin nord
     int getNord(int _indice);
@@ -109,10 +114,11 @@ private:
     // Renvoi l'altitude du voisin ouest
     int getOuest(int _indice);
 
+    // fonction qui premet d'afficher le diagramme de Voronoï (altitude)
     void printVoronoi(std::vector<double> valuation, std::vector<int> precedent);
 
+    // fonction qui premet d'afficher le diagramme de Voronoï (coût)
     void applyDijsktraVoronoi();
 };
-
 
 #endif //TP_NOTE_GRAPHE_H

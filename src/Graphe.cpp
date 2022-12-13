@@ -37,17 +37,17 @@ Graphe::~Graphe() {
     delete grille;
 }
 
-int* Graphe::setNewGraph(int _nbLigne, int _nbColonne) {
+int *Graphe::setNewGraph(int _nbLigne, int _nbColonne) {
     nbLigne = _nbLigne;
     nbColonne = _nbColonne;
-    grille = new int[nbLigne*nbColonne];
+    grille = new int[nbLigne * nbColonne];
     return grille;
 }
 
-int* Graphe::setLibTab(int _nbLigne, int _nbColonne) {
+int *Graphe::setLibTab(int _nbLigne, int _nbColonne) {
     nbLigne = _nbLigne;
     nbColonne = _nbColonne;
-    librairies = new int [nbLigne*nbColonne];
+    librairies = new int[nbLigne * nbColonne];
     return librairies;
 }
 
@@ -55,7 +55,8 @@ void Graphe::afficher() {
     for (int i = 0; i < nbLigne; ++i) {
         for (int j = 0; j < nbColonne; ++j) {
             int indice = getIndice(i, j);
-            std::cout << (librairies[indice] != -1 ? "L("+std::to_string(librairies[indice])+")" : "") << getAltitude(indice) << " ";
+            std::cout << (librairies[indice] != -1 ? "L(" + std::to_string(librairies[indice]) + ")" : "")
+                      << getAltitude(indice) << " ";
         }
         std::cout << std::endl;
     }
@@ -65,31 +66,31 @@ void Graphe::testVoisins(int _indice) {
     std::cout << "\n";
     std::cout << "Pour la valeur : " << getAltitude(_indice) << std::endl;
 
-    if(isVoisinExists(_indice, Cardinalite::Nord)){
+    if (isVoisinExists(_indice, Cardinalite::Nord)) {
         std::cout << "L'indice " << _indice << " a un voisin nord\n";
         std::cout << "Son altitude est : " << getAltitude(getVoisin(_indice, Cardinalite::Nord)) << std::endl;
-    }else {
+    } else {
         std::cout << "L'indice " << _indice << " n'a pas de voisin nord\n";
     }
 
-    if(isVoisinExists(_indice, Cardinalite::Ouest)){
+    if (isVoisinExists(_indice, Cardinalite::Ouest)) {
         std::cout << "L'indice " << _indice << " a un voisin Ouest\n";
         std::cout << "Son altitude est : " << getAltitude(getVoisin(_indice, Cardinalite::Ouest)) << std::endl;
-    }else {
+    } else {
         std::cout << "L'indice " << _indice << " n'a pas de voisin Ouest\n";
     }
 
-    if(isVoisinExists(_indice, Cardinalite::Sud)){
+    if (isVoisinExists(_indice, Cardinalite::Sud)) {
         std::cout << "L'indice " << _indice << " a un voisin Sud\n";
         std::cout << "Son altitude est : " << getAltitude(getVoisin(_indice, Cardinalite::Sud)) << std::endl;
-    }else {
+    } else {
         std::cout << "L'indice " << _indice << " n'a pas de voisin Sud\n";
     }
 
-    if(isVoisinExists(_indice, Cardinalite::Est)){
+    if (isVoisinExists(_indice, Cardinalite::Est)) {
         std::cout << "L'indice " << _indice << " a un voisin Est\n";
         std::cout << "Son altitude est : " << getAltitude(getVoisin(_indice, Cardinalite::Est)) << std::endl;
-    }else {
+    } else {
         std::cout << "L'indice " << _indice << " n'a pas de voisin Est\n";
     }
 }
@@ -125,33 +126,33 @@ int Graphe::nbVoisins(int _indice) {
 }
 
 bool Graphe::isVoisinNordExists(int _indice) {
-    return _indice-nbColonne >= 0;
+    return _indice - nbColonne >= 0;
 }
 
 bool Graphe::isVoisinOuestExists(int _indice) {
-    return _indice%nbColonne != 0;
+    return _indice % nbColonne != 0;
 }
 
 bool Graphe::isVoisinSudExists(int _indice) {
-    return (nbLigne-1)*nbColonne > _indice;
+    return (nbLigne - 1) * nbColonne > _indice;
 }
 
 bool Graphe::isVoisinEstExists(int _indice) {
-    return _indice%nbColonne != nbColonne-1;
+    return _indice % nbColonne != nbColonne - 1;
 }
 
 bool Graphe::isVoisinExists(int _indice, Cardinalite _cardi) {
     switch (_cardi) {
-        case Cardinalite::Nord : 
+        case Cardinalite::Nord :
             return isVoisinNordExists(_indice);
             break;
-        case Cardinalite::Ouest : 
+        case Cardinalite::Ouest :
             return isVoisinOuestExists(_indice);
             break;
-        case Cardinalite::Sud : 
+        case Cardinalite::Sud :
             return isVoisinSudExists(_indice);
             break;
-        case Cardinalite::Est : 
+        case Cardinalite::Est :
             return isVoisinEstExists(_indice);
             break;
     }
@@ -201,7 +202,7 @@ double Graphe::getValuationVoisin(int _indice, Cardinalite _cardi) {
 }
 
 int Graphe::getNord(int _indice) {
-    if(isVoisinExists(_indice, Cardinalite::Nord)){
+    if (isVoisinExists(_indice, Cardinalite::Nord)) {
         return _indice - nbColonne;
     }
     std::cout << "\nPour l'indice : " << _indice << " Il n'y a pas de voisin Nord\n";
@@ -209,7 +210,7 @@ int Graphe::getNord(int _indice) {
 }
 
 int Graphe::getOuest(int _indice) {
-    if(isVoisinExists(_indice, Cardinalite::Ouest)){
+    if (isVoisinExists(_indice, Cardinalite::Ouest)) {
         return _indice - 1;
     }
     std::cout << "\nPour l'indice : " << _indice << " Il n'y a pas de voisin Ouest\n";
@@ -217,7 +218,7 @@ int Graphe::getOuest(int _indice) {
 }
 
 int Graphe::getSud(int _indice) {
-    if(isVoisinExists(_indice, Cardinalite::Sud)){
+    if (isVoisinExists(_indice, Cardinalite::Sud)) {
         return _indice + nbColonne;
     }
     std::cout << "\nPour l'indice : " << _indice << " Il n'y a pas de voisin Sud\n";
@@ -225,7 +226,7 @@ int Graphe::getSud(int _indice) {
 }
 
 int Graphe::getEst(int _indice) {
-    if(isVoisinExists(_indice, Cardinalite::Est)){
+    if (isVoisinExists(_indice, Cardinalite::Est)) {
         return _indice + 1;
     }
     std::cout << "\nPour l'indice : " << _indice << " Il n'y a pas de voisin Est\n";
@@ -237,76 +238,76 @@ void Graphe::testRegression() {
     // 1) test pour le constructeur de graphe avec 3 paramètre
     // -> setNewGraph
 
-    int tab[6] = {1,2,3,4,5,6};
-    Graphe gExemple(2,3,tab);
+    int tab[6] = {1, 2, 3, 4, 5, 6};
+    Graphe gExemple(2, 3, tab);
     assert(gExemple.nbLigne == 2);
     assert(gExemple.nbColonne == 3);
 
     for (int i = 0; i < 4; ++i) { // test grille 
-        assert(gExemple.grille[i] == i+1);
-    } 
-    
+        assert(gExemple.grille[i] == i + 1);
+    }
+
     // 2) test pour le constructeur de graphe avec fichier 
     // -> setLibTab
 
     Graphe gExemple2("./data/ex2Graphe.txt"); // constructeur avec ficher
-    assert (gExemple2.nbLigne == 3);
-    assert (gExemple2.nbColonne == 4);
+    assert(gExemple2.nbLigne == 3);
+    assert(gExemple2.nbColonne == 4);
 
-    for (int i = 0; i < gExemple2.nbColonne*gExemple2.nbLigne; ++i) { // test grille 
+    for (int i = 0; i < gExemple2.nbColonne * gExemple2.nbLigne; ++i) { // test grille
         assert(gExemple2.grille[i] == i);
-    }     
+    }
     // Test pour l'emplacement des librairies
-    assert (gExemple2.librairies[0] == -1);
-    assert (gExemple2.librairies[1] == -1);
-    assert (gExemple2.librairies[2] == -1);
-    assert (gExemple2.librairies[3] == -1);
-    assert (gExemple2.librairies[4] == -1);
-    assert (gExemple2.librairies[5] == -1);
-    assert (gExemple2.librairies[6] >= 0);
-    assert (gExemple2.librairies[7] == -1);
-    assert (gExemple2.librairies[8] == -1);
-    assert (gExemple2.librairies[9] == -1);
-    assert (gExemple2.librairies[10] == -1);
-    assert (gExemple2.librairies[11] >= 0);
+    assert(gExemple2.librairies[0] == -1);
+    assert(gExemple2.librairies[1] == -1);
+    assert(gExemple2.librairies[2] == -1);
+    assert(gExemple2.librairies[3] == -1);
+    assert(gExemple2.librairies[4] == -1);
+    assert(gExemple2.librairies[5] == -1);
+    assert(gExemple2.librairies[6] >= 0);
+    assert(gExemple2.librairies[7] == -1);
+    assert(gExemple2.librairies[8] == -1);
+    assert(gExemple2.librairies[9] == -1);
+    assert(gExemple2.librairies[10] == -1);
+    assert(gExemple2.librairies[11] >= 0);
 
     // 3) Test afficher -> affiche les altitudes du graphe
 
-    std::cout<<"Test procédure affiche qui affiche les altitudes du graphe :"<<std::endl;
+    std::cout << "Test procédure affiche qui affiche les altitudes du graphe :" << std::endl;
     gExemple2.afficher();
 
     // 4) Test getIndice -> prend en paramètre la ligne et la colonne et renvoie l'indice correspond pour un tableau 1D
 
-    for (int i = 0; i < gExemple2.nbLigne; ++i){
+    for (int i = 0; i < gExemple2.nbLigne; ++i) {
         for (int j = 0; j < gExemple2.nbColonne; ++j) {
-            assert(gExemple2.getIndice(i,j) == i * gExemple2.nbColonne + j);
+            assert(gExemple2.getIndice(i, j) == i * gExemple2.nbColonne + j);
         }
     }
-    
+
     // 5) Test getLigne -> prend en paramètre un indice (du tableau 1D) et renvoit la ligne à laquelle appartient cette indice
 
-    for (int i = 0; i < 12; ++i){
+    for (int i = 0; i < 12; ++i) {
         assert(gExemple2.getLigne(i) == floor(i / gExemple2.nbColonne));
     }
 
     // 6) Test getColonne -> prend en paramètre un indice (tableau 1D) et renvoit la colonne à laquelle appartient cette indice
 
-    for (int i = 0; i < 12; ++i){
+    for (int i = 0; i < 12; ++i) {
         assert(gExemple2.getColonne(i) == i % gExemple2.nbColonne);
     }
 
     // 7) Test nbVoisins -> prend en paramètre un indice (tableau 1D) et renvoi le nombre de voisin qui existe
 
-    assert (gExemple2.nbVoisins(0) == 2);
-    assert (gExemple2.nbVoisins(1) == 3);
-    assert (gExemple2.nbVoisins(2) == 3);
-    assert (gExemple2.nbVoisins(3) == 2);
-    assert (gExemple2.nbVoisins(4) == 3); 
-    assert (gExemple2.nbVoisins(5) == 4);
-    assert (gExemple2.nbVoisins(7) == 3);
-    assert (gExemple2.nbVoisins(8) == 2);
-    assert (gExemple2.nbVoisins(10) == 3);
-    assert (gExemple2.nbVoisins(11) == 2);
+    assert(gExemple2.nbVoisins(0) == 2);
+    assert(gExemple2.nbVoisins(1) == 3);
+    assert(gExemple2.nbVoisins(2) == 3);
+    assert(gExemple2.nbVoisins(3) == 2);
+    assert(gExemple2.nbVoisins(4) == 3);
+    assert(gExemple2.nbVoisins(5) == 4);
+    assert(gExemple2.nbVoisins(7) == 3);
+    assert(gExemple2.nbVoisins(8) == 2);
+    assert(gExemple2.nbVoisins(10) == 3);
+    assert(gExemple2.nbVoisins(11) == 2);
 
     // 8) Test isVoisinNordExists -> prend en paramètre un indice et renvoie vrais si sont voisin nord exist
 
@@ -376,27 +377,28 @@ void Graphe::testRegression() {
     // 16) Test isVoisinExists -> prend en paramètre un indice et un cardinalité (Nord, sud, est et ouest), renvoi vrais si le voison pour
     // la cardinalité passé en paramètre existe.
 
-    assert((gExemple2.getNord(4) == 0) && (gExemple2.isVoisinExists(4,Cardinalite::Nord) == true));
-    assert((gExemple2.getSud(4) == 8) && (gExemple2.isVoisinExists(4,Cardinalite::Sud) == true));
-    assert((gExemple2.getEst(4) == 5) && (gExemple2.isVoisinExists(4,Cardinalite::Est) == true));
-    assert((gExemple2.getOuest(4) == -1) && (gExemple2.isVoisinExists(4,Cardinalite::Ouest) == false));
+    assert((gExemple2.getNord(4) == 0) && (gExemple2.isVoisinExists(4, Cardinalite::Nord) == true));
+    assert((gExemple2.getSud(4) == 8) && (gExemple2.isVoisinExists(4, Cardinalite::Sud) == true));
+    assert((gExemple2.getEst(4) == 5) && (gExemple2.isVoisinExists(4, Cardinalite::Est) == true));
+    assert((gExemple2.getOuest(4) == -1) && (gExemple2.isVoisinExists(4, Cardinalite::Ouest) == false));
 
     //17) Test getVoisin -> prend un paramètre un indice et une cardinalité et, renvoi l'indice du voisin pour cette cardinalité
 
-    assert((gExemple2.getNord(0) == -1) && (gExemple2.getVoisin(0,Cardinalite::Nord) == -1));
-    assert((gExemple2.getSud(0) == 4) && (gExemple2.getVoisin(0,Cardinalite::Sud) == 4));
-    assert((gExemple2.getEst(0) == 1) && (gExemple2.getVoisin(0,Cardinalite::Est) == 1));
-    assert((gExemple2.getOuest(0) == -1) && (gExemple2.getVoisin(0,Cardinalite::Ouest) == -1));
-}   
+    assert((gExemple2.getNord(0) == -1) && (gExemple2.getVoisin(0, Cardinalite::Nord) == -1));
+    assert((gExemple2.getSud(0) == 4) && (gExemple2.getVoisin(0, Cardinalite::Sud) == 4));
+    assert((gExemple2.getEst(0) == 1) && (gExemple2.getVoisin(0, Cardinalite::Est) == 1));
+    assert((gExemple2.getOuest(0) == -1) && (gExemple2.getVoisin(0, Cardinalite::Ouest) == -1));
+}
 
 struct PQElement { // element de notre file de priorité
     int indice;
     double valuation;
     int cout;
 
-    PQElement(int _indice, double _valuation, int _cout) : indice(_indice), valuation(_valuation), cout(_cout) {} // constructeur
+    PQElement(int _indice, double _valuation, int _cout) : indice(_indice), valuation(_valuation),
+                                                           cout(_cout) {} // constructeur
 
-    bool operator<(const PQElement& _other) const { // surcharge de l'opérateur de comparaison
+    bool operator<(const PQElement &_other) const { // surcharge de l'opérateur de comparaison
         return valuation < _other.valuation;
     }
 };
@@ -410,28 +412,30 @@ void Graphe::applyDijsktra() {
         valuation[i] = -1; // initialisation du tableau valuation 
     }
 
-    std::priority_queue<PQElement> aTraiter; // file de priorité (celui tous en haut de la pile est celui qu'on doit traiter)
+    std::priority_queue <PQElement> aTraiter; // file de priorité (celui tous en haut de la pile est celui qu'on doit traiter)
 
     for (int i = 0; i < taille; ++i) { // initialise l'emplacement des différentes librairie
-        if(librairies[i] >= 0){ // si il y a une librairie ici
+        if (librairies[i] >= 0) { // si il y a une librairie ici
             valuation[i] = 0; // alors la plus proche librairie c'est elle même
             precedent[i] = -1; // un librairie n'a donc pas de precedent
             aTraiter.push(PQElement(i, 0, librairies[i])); // on ajoute l'élément à la file de priorité
         }
     }
 
-    while(!aTraiter.empty()){
+    while (!aTraiter.empty()) {
         PQElement curr = aTraiter.top(); // je vais traiter mon élément avec la plus grande priorité
         aTraiter.pop(); // donc je peux l'enlever
 
         for (int i = 0; i < 4; ++i) { // pour tous les voisin (Nord sud est ouest)
-            if(isVoisinExists(curr.indice, (Cardinalite)i)){ // si une voison exist pour cette cardinalité
-                int voisinIndice = getVoisin(curr.indice, (Cardinalite)i); // je récupère son indice
-                double valuationVoisin = getValuationVoisin(curr.indice, (Cardinalite)i); // je récupère sa valuation sur le graphe
+            if (isVoisinExists(curr.indice, (Cardinalite) i)) { // si une voison exist pour cette cardinalité
+                int voisinIndice = getVoisin(curr.indice, (Cardinalite) i); // je récupère son indice
+                double valuationVoisin = getValuationVoisin(curr.indice,
+                                                            (Cardinalite) i); // je récupère sa valuation sur le graphe
                 double dv = valuation[voisinIndice]; // on récupère la valuation actuelle du voisin dans l'algo de dijsktra
                 double dc = valuation[curr.indice]; // on récupère la valuation actuelle de la où je me trouve dans l'algo de dijsktra
                 double dnv = dc + valuationVoisin; // je calcule la distance entre ces deux points
-                if(precedent[voisinIndice] == voisinIndice || dnv < dv){ // si je n'ai pas de précédent ou que ma nouvelle distance est plus petite que la précédente valuation de mon voisin 
+                if (precedent[voisinIndice] == voisinIndice || dnv <
+                                                               dv) { // si je n'ai pas de précédent ou que ma nouvelle distance est plus petite que la précédente valuation de mon voisin
                     precedent[voisinIndice] = curr.indice; // mon nouveau point le plus proche devient celui sur lequel j'ai lancer le traitement 
                     valuation[voisinIndice] = dnv; // ma distance qui me sépare de la librairie la plus proche est mis à jour
                     aTraiter.push(PQElement(voisinIndice, dnv, curr.cout)); // on le passe chez les noirs
@@ -441,17 +445,17 @@ void Graphe::applyDijsktra() {
     }
 
     //Afficher les tableaux de valuation et de precedent
-    std::cout <<"\n Valuation : \n";
+    std::cout << "\n Valuation : \n";
     for (int i = 0; i < taille; ++i) {
         std::cout << valuation[i] << " ";
-        if(i%nbColonne == nbColonne-1){
+        if (i % nbColonne == nbColonne - 1) {
             std::cout << "\n";
         }
     }
     std::cout << "\n Precedent : \n";
     for (int i = 0; i < taille; ++i) {
         std::cout << precedent[i] << " ";
-        if(i%nbColonne == nbColonne-1){
+        if (i % nbColonne == nbColonne - 1) {
             std::cout << "\n";
         }
     }
@@ -464,18 +468,18 @@ void Graphe::printVoronoi(std::vector<double> valuation, std::vector<int> preced
     std::cout << "\n\n";
     int indicePred;
 
-    for (int i = 0; i < nbLigne*nbColonne; ++i) {  // a
-        if (precedent[i] == -1) { 
-            std::cout <<"\033[48;5;"<<i%256<<"m"<<std::setw(8)<<"  LIB   "<< "\033[0m";
+    for (int i = 0; i < nbLigne * nbColonne; ++i) {  // a
+        if (precedent[i] == -1) {
+            std::cout << "\033[48;5;" << i % 256 << "m" << std::setw(8) << "  LIB   " << "\033[0m";
         } else {
             indicePred = precedent[i];
             while (precedent[indicePred] != -1) {
                 indicePred = precedent[indicePred];
             }
-            std::cout <<"\033[48;5;"<<indicePred%256<<"m"<<std::setw(8)<<valuation[i]<<" "<< "\033[0m";
+            std::cout << "\033[48;5;" << indicePred % 256 << "m" << std::setw(8) << valuation[i] << " " << "\033[0m";
         }
-        if(i%nbColonne == nbColonne-1){
-            std::cout<<std::endl;
+        if (i % nbColonne == nbColonne - 1) {
+            std::cout << std::endl;
         }
     }
 }
@@ -489,28 +493,30 @@ void Graphe::applyDijsktraVoronoi() {
         valuation[i] = -1; // initialisation du tableau valuation
     }
 
-    std::priority_queue<PQElement> aTraiter; // file de priorité (celui tous en haut de la pile est celui qu'on doit traiter)
+    std::priority_queue <PQElement> aTraiter; // file de priorité (celui tous en haut de la pile est celui qu'on doit traiter)
 
     for (int i = 0; i < taille; ++i) { // initialise l'emplacement des différentes librairie
-        if(librairies[i] >= 0){ // si il y a une librairie ici
+        if (librairies[i] >= 0) { // si il y a une librairie ici
             valuation[i] = 0; // alors la plus proche librairie c'est elle même
             precedent[i] = -1; // un librairie n'a donc pas de precedent
             aTraiter.push(PQElement(i, 0, librairies[i])); // on ajoute l'élément à la file de priorité
         }
     }
 
-    while(!aTraiter.empty()){
+    while (!aTraiter.empty()) {
         PQElement curr = aTraiter.top(); // je vais traiter mon élément avec la plus grande priorité
         aTraiter.pop(); // donc je peux l'enlever
 
         for (int i = 0; i < 4; ++i) { // pour tous les voisin (Nord sud est ouest)
-            if(isVoisinExists(curr.indice, (Cardinalite)i)){ // si une voison exist pour cette cardinalité
-                int voisinIndice = getVoisin(curr.indice, (Cardinalite)i); // je récupère son indice
-                double valuationVoisin = getValuationVoisin(curr.indice, (Cardinalite)i); // je récupère sa valuation sur le graphe
+            if (isVoisinExists(curr.indice, (Cardinalite) i)) { // si une voison exist pour cette cardinalité
+                int voisinIndice = getVoisin(curr.indice, (Cardinalite) i); // je récupère son indice
+                double valuationVoisin = getValuationVoisin(curr.indice,
+                                                            (Cardinalite) i); // je récupère sa valuation sur le graphe
                 double dv = valuation[voisinIndice]; // on récupère la valuation actuelle du voisin dans l'algo de dijsktra
                 double dc = valuation[curr.indice]; // on récupère la valuation actuelle de la où je me trouve dans l'algo de dijsktra
-                double dnv = dc + valuationVoisin*curr.cout; // je calcule la distance entre ces deux points
-                if(precedent[voisinIndice] == voisinIndice || dnv < dv){ // si je n'ai pas de précédent ou que ma nouvelle distance est plus petite que la précédente valuation de mon voisin
+                double dnv = dc + valuationVoisin * curr.cout; // je calcule la distance entre ces deux points
+                if (precedent[voisinIndice] == voisinIndice || dnv <
+                                                               dv) { // si je n'ai pas de précédent ou que ma nouvelle distance est plus petite que la précédente valuation de mon voisin
                     precedent[voisinIndice] = curr.indice; // mon nouveau point le plus proche devient celui sur lequel j'ai lancer le traitement
                     valuation[voisinIndice] = dnv; // ma distance qui me sépare de la librairie la plus proche est mis à jour
                     aTraiter.push(PQElement(voisinIndice, dnv, curr.cout)); // on le passe chez les noirs

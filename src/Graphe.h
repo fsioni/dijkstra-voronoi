@@ -4,19 +4,24 @@
 #include <vector>
 
 // Definition des différentes cardinalités
-enum Cardinalite {Nord, Ouest, Sud, Est};
+enum Cardinalite {
+    Nord, Ouest, Sud, Est
+};
 
 class Graphe {
 public:
-    
+
     /******************************/
     /*Constructeurs & destructeur*/
     /****************************/
 
     Graphe();
+
     Graphe(int _nbLigne, int _nbColonne, int _altitudes[]);
+
     // Prend un paramètre un ficher txt pour affecter les altitudes au graphe
-    Graphe(const char * _fichier);
+    Graphe(const char *_fichier);
+
     ~Graphe();
 
     /********************************/
@@ -24,23 +29,28 @@ public:
     /******************************/
 
     // Initialise le tableau avec le nombre de lignes et de colonnes passés en paramètre 
-    int* setNewGraph(int _nbLigne, int _nbColonne);
+    int *setNewGraph(int _nbLigne, int _nbColonne);
 
-    int* setLibTab(int _nbLigne, int _nbColonne);
+    int *setLibTab(int _nbLigne, int _nbColonne);
 
     // Affiche le graphe (les altitudes)
     void afficher();
-    
+
     // Affiche le status des voisins en fonction l'indice en paramètre
     void testVoisins(int _indice);
+
     void setAltitude(int _indice, int _newAlti);
+
     double getValuationVoisin(int _indice, Cardinalite _cardi);
+
     void applyDijsktra();
+
     void VoronoiLivraison();
-    void testRegression(); // affectue un série de tests 
+
+    void testRegression(); // affectue un série de tests
 
 private:
-    
+
     /****************/
     /*Donnée membre*/
     /**************/
@@ -55,10 +65,13 @@ private:
 
     // Renvoi l'indice du tableau sous forme 1D 
     int getIndice(int _ligne, int _colonne);
+
     // Renvoi la ligne de l'indice passer en paramètre
     int getLigne(int _indice);
+
     // Renvoi la colonne de l'indice passer en paramètre
     int getColonne(int _indice);
+
     // Renvoi l'altitude de l'indice passer en paramètre
     int getAltitude(int _indice);
 
@@ -67,12 +80,16 @@ private:
 
     // Renvoi vrai si le voisin de l'indice, pour une cardinalité passer en paramètre existe, faux sinon
     bool isVoisinExists(int _indice, Cardinalite _cardi);
+
     // Renvoi vrais si l'indice à un voisin nord, faux sinon
     bool isVoisinNordExists(int _indice);
+
     // Renvoi vrais si l'indice à un voisin ouest, faux sinon
     bool isVoisinOuestExists(int _indice);
+
     // Renvoi vrais si l'indice à un voisin sud, faux sinon
     bool isVoisinSudExists(int _indice);
+
     // Renvoi vrais si l'indice à un voisin est, faux sinon
     bool isVoisinEstExists(int _indice);
 
@@ -82,14 +99,18 @@ private:
 
     // Renvoi l'altitude du voisin nord
     int getNord(int _indice);
+
     // Renvoi l'altitude du voisin sud
     int getSud(int _indice);
+
     // Renvoi l'altitude du voisin est
     int getEst(int _indice);
+
     // Renvoi l'altitude du voisin ouest
     int getOuest(int _indice);
 
     void printVoronoi(std::vector<double> valuation, std::vector<int> precedent);
+
     void applyDijsktraVoronoi();
 };
 

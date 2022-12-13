@@ -4,6 +4,6 @@
 #include "Graphe.h"
 
 
-void textToTab (const char * _fichier, Graphe* graphe);
+void textToTab(const char *_fichier, Graphe *graphe);
 
 #endif 

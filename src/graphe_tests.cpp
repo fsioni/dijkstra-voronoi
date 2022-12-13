@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-int main(){
+int main() {
     Graphe g;
     g.testRegression();
 }

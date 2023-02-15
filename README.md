@@ -5,6 +5,11 @@
 Programme en C++ permettant de générer un graphe d’un terrain et un diagramme de Voronoï correspondant au résultat de l'algorithme de Dijkstra (avec et sans coût).
 
 
+## Sujet de TP
+[Disponible ici](https://perso.liris.cnrs.fr/raphaelle.chaine/COURS/LIFAP6/tp09-voronoi.pdf "Sujet du TP noté")
+
+
+
 ### 🏁 Prérequis
 `g++`
 

@@ -7,7 +7,8 @@ Programme en C++ permettant de générer un graphe d’un terrain et un diagramm
 
 ## Sujet de TP
 [Disponible ici](https://perso.liris.cnrs.fr/raphaelle.chaine/COURS/LIFAP6/tp09-voronoi.pdf "Sujet du TP noté")
-*NOTE FINALE : 19,5/20* (meilleure note/92 étudiants)
+
+**NOTE FINALE : 19,5/20** (meilleure note/92 étudiants)
 
 
 

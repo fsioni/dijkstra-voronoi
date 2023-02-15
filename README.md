@@ -115,5 +115,5 @@ g.VoronoiLivraison();
 
 ## ✍️ Auteurs <a name = "authors"></a>
 
-- [Farès SIONI](https://forge.univ-lyon1.fr/p1907037) : p1907037
+- [Farès SIONI](https://github.com/fsioni) : p1907037
 - [Edouard THINOT](https://forge.univ-lyon1.fr/p1909945) : p1909945
